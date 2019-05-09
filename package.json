@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/rpt13-tokillamockingbird/priyaFEC/issues"
   },
-  "homepage": "https://github.com/rpt13-tokillamockingbird/priyaFEC#readme"
+  "homepage": "https://github.com/rpt13-tokillamockingbird/priyaFEC#readme",
+  "devDependencies": {
+    "faker": "^4.1.0"
+  }
 }
