@@ -1,0 +1,19 @@
+{
+  "name": "nordstorm",
+  "version": "1.0.0",
+  "description": "Build the item buyer section",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpt13-tokillamockingbird/priyaFEC.git"
+  },
+  "author": "Priya Dubal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rpt13-tokillamockingbird/priyaFEC/issues"
+  },
+  "homepage": "https://github.com/rpt13-tokillamockingbird/priyaFEC#readme"
+}
