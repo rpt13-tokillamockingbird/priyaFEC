@@ -5,7 +5,7 @@ var mysql = require('mysql');
 // and to the database "chat".
 dbConnection = mysql.createConnection({
     user: 'root',
-    password: 'rootPriya1211',
+    password: '',
     database: 'fec'
 });
 
@@ -14,6 +14,8 @@ dbConnection.connect(function (err) {
         return console.error('Error in connecting Database FEC :' + err);
     }
     console.log("Connected to MySQL server FEC Database")
+
+    // Create Tables if not exist
 });
 
 
