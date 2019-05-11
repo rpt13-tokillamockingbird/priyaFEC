@@ -131,8 +131,29 @@ dbConnection.connect(function (err) {
             }
             console.log('Width Id:' + results.insertId);
         });
-    })
+    });
 
+    let productId = 4999;
+    for (let i = 0; i <= 100; i++) {
+        productId++;
+        for (let i = 0; i < 5; i++) {
+            let colorId = Math.floor(Math.random() * (23)) + 1;
+            let SizeId = Math.floor(Math.random() * (11)) + 1;
+            let WidthId = Math.floor(Math.random() * (5)) + 1;
+            let Quantity = Math.floor(Math.random() * (50)) + 50;
+            let insertProductStmt = `INSERT INTO ProductInventory (ProductId, Quantity, SizeId, WidthId, ColorId) VALUE ('${productId}', '${Quantity}', '${SizeId}', '${WidthId}', '${colorId}' )`;
+            dbConnection.query(insertProductStmt, (err, results, fields) => {
+                if (err) {
+                    console.log(colorId)
+                    console.log(SizeId)
+                    console.log(WidthId)
+                    console.log(Quantity)
+                    return console.error(err.message);
+                }
+                console.log('ProductInventory Id:' + results.insertId);
+            });
+        }
+    }
 
     dbConnection.end(function (err) {
         if (err) {
