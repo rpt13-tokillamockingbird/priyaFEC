@@ -6,7 +6,7 @@ var faker = require('faker');
 // and to the database "chat".
 dbConnection = mysql.createConnection({
     user: 'root',
-    password: 'rootPriya1211',
+    password: '',
     database: 'fec'
 });
 
@@ -39,7 +39,6 @@ dbConnection.connect(function (err) {
             console.log('deleteColorTable:', err.message);
         }
     });
-
 
     let createSizeTable = `CREATE TABLE if not exists Size(
                             SizeId int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -76,8 +75,6 @@ dbConnection.connect(function (err) {
         }
     });
 
-
-
     let createProductInventoryTable = `CREATE TABLE if not exists ProductInventory (
                                        RecId int NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                        ProductId int, 
@@ -111,6 +108,30 @@ dbConnection.connect(function (err) {
             });
         }
     });
+
+    let USSize = ['5-5.5US', '6-6.5US', '7-7.5US', '8-8.5US', '9-9.5US', '10-10.5US', '11-11.5US', '12-12.5US', '13-13.5US', '14-14.5US', '15-15.5US'];
+    let EUSize = ['39EU', '40EU', '41EU', '42EU', '43EU', '44EU', '45EU', '46EU', '47EU', '48EU', '49EU'];
+    USSize.forEach((size, index) => {
+        let inserSizeStmt = `INSERT INTO Size (USSize, EUSize) VALUE ('${USSize[index]}', '${EUSize[index]}')`;
+        dbConnection.query(inserSizeStmt, (err, results, fields) => {
+            if (err) {
+                return console.error(err.message);
+            }
+            console.log('Size Id:' + results.insertId);
+        });
+    });
+
+    let Width = ['M(Medium)', 'W(Wide)', 'N(Narrow)', 'EX(Extra-Wide)', 'S(Small)'];
+
+    Width.forEach((width, index) => {
+        let insertWidtheStmt = `INSERT INTO Width (WidthType) VALUE ('${width}')`;
+        dbConnection.query(insertWidtheStmt, (err, results, fields) => {
+            if (err) {
+                return console.error(err.message);
+            }
+            console.log('Width Id:' + results.insertId);
+        });
+    })
 
 
     dbConnection.end(function (err) {
