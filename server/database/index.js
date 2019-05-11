@@ -6,7 +6,7 @@ var faker = require('faker');
 // and to the database "chat".
 dbConnection = mysql.createConnection({
     user: 'root',
-    password: '',
+    password: 'rootPriya1211',
     database: 'fec'
 });
 
@@ -15,6 +15,7 @@ dbConnection.connect(function (err) {
         return console.error('Error in connecting Database FEC :' + err);
     }
     console.log("Connected to MySQL server FEC Database")
+    //Drops the table if present at initalization 
     let deleteProductInventoryTable = `DROP TABLE IF EXISTS ProductInventory`;
     dbConnection.query(deleteProductInventoryTable, function (err, results, fields) {
         if (err) {
@@ -39,6 +40,8 @@ dbConnection.connect(function (err) {
             console.log('deleteColorTable:', err.message);
         }
     });
+
+    //Create the tables at initalization 
 
     let createSizeTable = `CREATE TABLE if not exists Size(
                             SizeId int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -92,10 +95,14 @@ dbConnection.connect(function (err) {
         }
     });
 
+    //Feeds the tables with data;
+
+    //gets color data from faker;
     var colorArray = [];
     for (let i = 0; i <= 50; i++) {
         colorArray.push(faker.commerce.color())
     }
+    //avoids duplicate color names
     let uniqueArray = [...new Set(colorArray)]
     uniqueArray.forEach(color => {
         if (color.split(" ").length < 2) {
@@ -109,6 +116,7 @@ dbConnection.connect(function (err) {
         }
     });
 
+    // Add the Size table with standard US SIZE
     let USSize = ['5-5.5US', '6-6.5US', '7-7.5US', '8-8.5US', '9-9.5US', '10-10.5US', '11-11.5US', '12-12.5US', '13-13.5US', '14-14.5US', '15-15.5US'];
     let EUSize = ['39EU', '40EU', '41EU', '42EU', '43EU', '44EU', '45EU', '46EU', '47EU', '48EU', '49EU'];
     USSize.forEach((size, index) => {
@@ -121,6 +129,7 @@ dbConnection.connect(function (err) {
         });
     });
 
+    //Adds the width Standars
     let Width = ['M(Medium)', 'W(Wide)', 'N(Narrow)', 'EW(Extra-Wide)', 'S(Small)'];
 
     Width.forEach((width, index) => {
@@ -133,10 +142,13 @@ dbConnection.connect(function (err) {
         });
     });
 
+    //Feeds the product table with data
     let productId = 4999;
-    for (let i = 0; i <= 100; i++) {
+    for (let i = 0; i < 100; i++) {
+        // Each product alteast have 5 differetn types of configuration
         productId++;
         for (let i = 0; i < 5; i++) {
+            // genrate random Id from different table
             let colorId = Math.floor(Math.random() * (23)) + 1;
             let SizeId = Math.floor(Math.random() * (11)) + 1;
             let WidthId = Math.floor(Math.random() * (5)) + 1;
