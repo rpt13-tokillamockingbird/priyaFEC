@@ -6,7 +6,7 @@ var faker = require('faker');
 // and to the database "chat".
 dbConnection = mysql.createConnection({
     user: 'root',
-    password: 'rootPriya1211',
+    password: '',
     database: 'fec'
 });
 
