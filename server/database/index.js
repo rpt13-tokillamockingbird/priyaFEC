@@ -144,10 +144,6 @@ dbConnection.connect(function (err) {
             let insertProductStmt = `INSERT INTO ProductInventory (ProductId, Quantity, SizeId, WidthId, ColorId) VALUE ('${productId}', '${Quantity}', '${SizeId}', '${WidthId}', '${colorId}' )`;
             dbConnection.query(insertProductStmt, (err, results, fields) => {
                 if (err) {
-                    console.log(colorId)
-                    console.log(SizeId)
-                    console.log(WidthId)
-                    console.log(Quantity)
                     return console.error(err.message);
                 }
                 console.log('ProductInventory Id:' + results.insertId);
