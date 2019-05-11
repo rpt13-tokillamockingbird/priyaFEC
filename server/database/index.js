@@ -6,7 +6,7 @@ var faker = require('faker');
 // and to the database "chat".
 dbConnection = mysql.createConnection({
     user: 'root',
-    password: '',
+    password: 'rootPriya1211',
     database: 'fec'
 });
 
@@ -121,7 +121,7 @@ dbConnection.connect(function (err) {
         });
     });
 
-    let Width = ['M(Medium)', 'W(Wide)', 'N(Narrow)', 'EX(Extra-Wide)', 'S(Small)'];
+    let Width = ['M(Medium)', 'W(Wide)', 'N(Narrow)', 'EW(Extra-Wide)', 'S(Small)'];
 
     Width.forEach((width, index) => {
         let insertWidtheStmt = `INSERT INTO Width (WidthType) VALUE ('${width}')`;
