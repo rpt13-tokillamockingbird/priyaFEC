@@ -142,7 +142,7 @@ dbConnection.connect(function (err) {
         });
     });
 
-    //Feeds the product table with data
+    //Feeds the product inventory table with data
     let productId = 4999;
     for (let i = 0; i < 100; i++) {
         // Each product alteast have 5 differetn types of configuration
