@@ -129,7 +129,7 @@ dbConnection.connect(function (err) {
         });
     });
 
-    //Adds the width Standars
+    //Adds the width standards
     let Width = ['M(Medium)', 'W(Wide)', 'N(Narrow)', 'EW(Extra-Wide)', 'S(Small)'];
 
     Width.forEach((width, index) => {
