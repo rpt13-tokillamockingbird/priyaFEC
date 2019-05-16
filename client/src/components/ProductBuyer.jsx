@@ -48,6 +48,7 @@ export default class ProductBuyer extends React.Component {
         this.state = {
             productInfo: {},
             productReviewInfo: {},
+            productInventoryInfo: {}
 
         }
     }
@@ -68,16 +69,25 @@ export default class ProductBuyer extends React.Component {
         }
         this.setState({
             productInfo: productServiceData,
-            productReviewInfo: reviewServiceData
+            productReviewInfo: reviewServiceData,
+
         });
-
+        debugger;
         // get productID from url
-
+        let ri = this;
         $.ajax({
             url: '/productBuyerInfo',
             method: 'GET',
             success: function (data) {
-                console.log(data);
+                debugger;
+                let productInventory = {};
+                productInventory.SizesAvailable = data.map(prd => `${prd.USSize}/${prd.EUSize}`);
+                productInventory.WidthAvaialble = data.map(prd => `${prd.WidthType}`);
+                productInventory.ColorAvailable = data.map(prd => `${prd.Color}`);
+                console.log(productInventory);
+                ri.setState({
+                    productInventoryInfo: productInventory,
+                });
             },
             error: function (err) {
                 console.log(err);
@@ -120,6 +130,9 @@ export default class ProductBuyer extends React.Component {
                     <p style={productDesc}>
                         {this.state.productInfo.productSingleLinDesc}
                     </p>
+                </div>
+                <div id="prdInv">
+
                 </div>
 
             </div>

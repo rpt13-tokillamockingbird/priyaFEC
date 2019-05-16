@@ -12,7 +12,7 @@ buyerData.getBuyerInfo = function (cb) {
     from ProductInventory as i inner join Size as s on i.SizeId = s.SizeId 
     inner join  Width  as w on i.WidthId = w.WidthId
     inner join Color as c on i.ColorId = c.ColorId
-    where i.ProductId = 5000
+    where i.ProductId = 5000 and i.Quantity > 0
     ORDER BY ProductId asc LIMIT 100`;
     dbConnection1.query(getBuyerInfo, (err, results) => {
         if (err) {
