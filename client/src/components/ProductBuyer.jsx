@@ -3,9 +3,9 @@ import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Container';
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
+import dropDownStyle from '../../src/style/DropDown.css'
 
 const productInfo = {
     fontFamily: "Arial",
@@ -40,6 +40,15 @@ const strikePrice = {
 const productDesc = {
     fontSize: '0.8rem',
 }
+
+const productInv = {
+    fontSize: '0.8rem',
+}
+
+const prodInvFontSetting = {
+    fontWeight: 600,
+}
+
 
 
 export default class ProductBuyer extends React.Component {
@@ -81,9 +90,9 @@ export default class ProductBuyer extends React.Component {
             success: function (data) {
                 debugger;
                 let productInventory = {};
-                productInventory.SizesAvailable = data.map(prd => `${prd.USSize}/${prd.EUSize}`);
-                productInventory.WidthAvaialble = data.map(prd => `${prd.WidthType}`);
-                productInventory.ColorAvailable = data.map(prd => `${prd.Color}`);
+                productInventory.SizesAvailable = data.map(prd => { return { value: `${prd.USSize}/${prd.EUSize}`, label: `${prd.USSize}/${prd.EUSize}` } });
+                productInventory.WidthAvaialble = data.map(prd => { return { value: `${prd.WidthType}`, label: `${prd.WidthType}` } });
+                productInventory.ColorAvailable = data.map(prd => { return { value: `${prd.Color}`, label: `${prd.Color}` } });
                 console.log(productInventory);
                 ri.setState({
                     productInventoryInfo: productInventory,
@@ -97,6 +106,7 @@ export default class ProductBuyer extends React.Component {
 
     render() {
         const isDiscounted = this.state.productInfo.productDiscountPrice;
+        const defaultSize = "Size"
         let productPriceInfo;
         if (isDiscounted) {
             productPriceInfo = <p>$<strike style={strikePrice}>{this.state.productInfo.productOriginalPrice}</strike>&nbsp;${this.state.productInfo.productDiscountPrice}&nbsp;  {this.state.productInfo.productDiscountPercent}% off</p>
@@ -131,7 +141,14 @@ export default class ProductBuyer extends React.Component {
                         {this.state.productInfo.productSingleLinDesc}
                     </p>
                 </div>
-                <div id="prdInv">
+                <div id="prdInv" style={productInv}>
+                    <p><span style={prodInvFontSetting}>Fit</span> True to size</p>
+                    <Dropdown style={dropDownStyle} options={this.state.productInventoryInfo.SizesAvailable} placeholder="Size" />
+                    <br />
+                    <br />
+                    <Dropdown options={this.state.productInventoryInfo.WidthAvaialble} placeholder="Width" />
+                    <br />
+                    <Dropdown options={this.state.productInventoryInfo.ColorAvailable} placeholder="Color" />
 
                 </div>
 
