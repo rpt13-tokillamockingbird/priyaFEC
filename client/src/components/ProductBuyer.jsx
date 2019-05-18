@@ -111,7 +111,7 @@ export default class ProductBuyer extends React.Component {
                 let productInventory = {};
                 productInventory.SizesAvailable = data.map(prd => { return { value: `${prd.USSize}/${prd.EUSize}`, label: `${prd.USSize}/${prd.EUSize}` } });
                 productInventory.WidthAvaialble = data.map(prd => { return { value: `${prd.WidthType}`, label: `${prd.WidthType}` } });
-                productInventory.ColorAvailable = data.map(prd => { return { value: `${prd.Color}`, label: `${prd.Color}` } });
+                productInventory.ColorAvailable = data.map(prd => { return { value: `${prd.Color}`, label: `${prd.Color.toUpperCase()}` } });
                 let colorArrayData = data.map(prd => prd.Color);
                 console.log(productInventory);
                 ri.setState({
@@ -202,7 +202,8 @@ export default class ProductBuyer extends React.Component {
                             backgroundColor: element,
                             borderRadius: '50%',
                             display: 'inline-block',
-                            margin: '10px'
+                            margin: '10px',
+                            border: '1px solid grey'
                         }
                         return <div ref={element} key={index} style={colorBox}></div>
                     })}

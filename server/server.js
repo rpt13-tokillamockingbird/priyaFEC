@@ -7,13 +7,6 @@ const path = require('path');
 
 app.use('/productBuyerInfo/:id', express.static(path.join(__dirname, '../client/dist')))
 
-app.get('/productBuyerInfo/:id', function (req, res) {
-    console.log(req.query);
-    dbConnect.buyerData.getBuyerInfo(req.params.id, function (data) {
-        res.send(data);
-    });
-});
-
 app.get('/productInfo', function (req, res) {
     debugger;
     dbConnect.buyerData.getBuyerInfo(req.query.id, function (data) {
