@@ -49,6 +49,17 @@ const prodInvFontSetting = {
     fontWeight: 600,
 }
 
+let buttonStyle = {
+    backgroundColor: 'black',
+    color: 'white',
+    padding: '10px',
+    width: '474px'
+}
+
+let inputStyle = {
+    height: '50px',
+    width: '50px'
+}
 
 
 export default class ProductBuyer extends React.Component {
@@ -57,9 +68,13 @@ export default class ProductBuyer extends React.Component {
         this.state = {
             productInfo: {},
             productReviewInfo: {},
-            productInventoryInfo: {}
-
+            productInventoryInfo: {},
+            colorArray: [],
+            previousColor: ''
         }
+        this._onSelect = this._onSelect.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
     }
     componentDidMount() {
         debugger;
@@ -93,15 +108,37 @@ export default class ProductBuyer extends React.Component {
                 productInventory.SizesAvailable = data.map(prd => { return { value: `${prd.USSize}/${prd.EUSize}`, label: `${prd.USSize}/${prd.EUSize}` } });
                 productInventory.WidthAvaialble = data.map(prd => { return { value: `${prd.WidthType}`, label: `${prd.WidthType}` } });
                 productInventory.ColorAvailable = data.map(prd => { return { value: `${prd.Color}`, label: `${prd.Color}` } });
+                let colorArrayData = data.map(prd => prd.Color);
                 console.log(productInventory);
                 ri.setState({
                     productInventoryInfo: productInventory,
+                    colorArray: colorArrayData
                 });
             },
             error: function (err) {
                 console.log(err);
             }
         });
+    }
+
+    _onSelect(event) {
+        debugger;
+        let data = event.value;
+        if (this.state.previousColor) {
+            this.refs[this.state.previousColor].style['width'] = "50px";
+            this.refs[this.state.previousColor].style['height'] = "50px";
+            this.refs[this.state.previousColor].style['border'] = "0px";
+        }
+        this.refs[data].style['width'] = "60px";
+        this.refs[data].style['height'] = "60px";
+        this.refs[data].style['border'] = "2px solid black";
+        this.setState({
+            previousColor: data,
+        });
+
+    }
+    handleSubmit() {
+
     }
 
     render() {
@@ -114,6 +151,7 @@ export default class ProductBuyer extends React.Component {
         else {
             productPriceInfo = <p>${this.state.productInfo.productOriginalPrice}</p>
         }
+
         return (
             <div style={productInfo}>
                 <h3>NORDSTORM Product Buyer</h3>
@@ -148,9 +186,32 @@ export default class ProductBuyer extends React.Component {
                     <br />
                     <Dropdown options={this.state.productInventoryInfo.WidthAvaialble} placeholder="Width" />
                     <br />
-                    <Dropdown options={this.state.productInventoryInfo.ColorAvailable} placeholder="Color" />
 
+                    <Dropdown onChange={this._onSelect} options={this.state.productInventoryInfo.ColorAvailable} placeholder="Color" />
+                    <br />
+                    <br />
+
+                    {this.state.colorArray.map(function (element, index) {
+                        const colorBox = {
+                            width: '50px',
+                            height: '50px',
+                            backgroundColor: element,
+                            borderRadius: '50%',
+                            display: 'inline-block',
+                            margin: '10px'
+                        }
+                        return <div ref={element} key={index} style={colorBox}></div>
+                    })}
+
+                    <form onSubmit={this.handleSubmit}>
+                        <br />
+                        <input style={inputStyle} type="text" value={this.state.qty} />
+                        <br />
+                        <br />
+                        <input style={buttonStyle} type="submit" value="Add to Bag" />
+                    </form>
                 </div>
+
 
             </div>
         )
