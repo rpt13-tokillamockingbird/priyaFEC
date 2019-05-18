@@ -2,10 +2,21 @@ const express = require('express');
 const app = express();
 const port = 4000;
 const dbConnect = require("../server/database/getBuyerInfo");
-app.use(express.static('client/dist'));
+const path = require('path');
+//app.use(express.static('client/dist'));
 
-app.get('/productBuyerInfo', function (req, res) {
-    dbConnect.buyerData.getBuyerInfo(function (data) {
+app.use('/productBuyerInfo/:id', express.static(path.join(__dirname, '../client/dist')))
+
+app.get('/productBuyerInfo/:id', function (req, res) {
+    console.log(req.query);
+    dbConnect.buyerData.getBuyerInfo(req.params.id, function (data) {
+        res.send(data);
+    });
+});
+
+app.get('/productInfo', function (req, res) {
+    debugger;
+    dbConnect.buyerData.getBuyerInfo(req.query.id, function (data) {
         res.send(data);
     });
 });

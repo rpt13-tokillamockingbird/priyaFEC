@@ -78,6 +78,8 @@ export default class ProductBuyer extends React.Component {
     }
     componentDidMount() {
         debugger;
+        var pathData = window.location.href.split('/')
+        let productId = pathData[pathData.length - 2];
         let productServiceData = {
             productTitle: 'Everett Plain Toe Derby',
             productSubTitle: 'THE RAIL',
@@ -94,13 +96,15 @@ export default class ProductBuyer extends React.Component {
         this.setState({
             productInfo: productServiceData,
             productReviewInfo: reviewServiceData,
-
         });
         debugger;
         // get productID from url
         let ri = this;
         $.ajax({
-            url: '/productBuyerInfo',
+            url: `/productInfo`,
+            data: {
+                id: productId
+            },
             method: 'GET',
             success: function (data) {
                 debugger;
