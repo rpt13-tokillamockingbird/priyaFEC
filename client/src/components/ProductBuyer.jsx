@@ -70,7 +70,8 @@ export default class ProductBuyer extends React.Component {
             productReviewInfo: {},
             productInventoryInfo: {},
             colorArray: [],
-            previousColor: ''
+            previousColor: '',
+            value: {}
         }
         this._onSelect = this._onSelect.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -113,10 +114,12 @@ export default class ProductBuyer extends React.Component {
                 productInventory.WidthAvaialble = data.map(prd => { return { value: `${prd.WidthType}`, label: `${prd.WidthType}` } });
                 productInventory.ColorAvailable = data.map(prd => { return { value: `${prd.Color}`, label: `${prd.Color.toUpperCase()}` } });
                 let colorArrayData = data.map(prd => prd.Color);
-                console.log(productInventory);
+                console.log(productInventory.ColorAvailable[0]);
                 ri.setState({
                     productInventoryInfo: productInventory,
-                    colorArray: colorArrayData
+                    colorArray: colorArrayData,
+                    value: 'Color'
+
                 });
             },
             error: function (err) {
@@ -138,6 +141,7 @@ export default class ProductBuyer extends React.Component {
         this.refs[data].style['border'] = "2px solid black";
         this.setState({
             previousColor: data,
+            value: data
         });
 
     }
@@ -191,7 +195,7 @@ export default class ProductBuyer extends React.Component {
                     <Dropdown options={this.state.productInventoryInfo.WidthAvaialble} placeholder="Width" />
                     <br />
 
-                    <Dropdown onChange={this._onSelect} options={this.state.productInventoryInfo.ColorAvailable} placeholder="Color" />
+                    <Dropdown onChange={this._onSelect} options={this.state.productInventoryInfo.ColorAvailable} value={this.state.value} placeholder="Color" />
                     <br />
                     <br />
 
