@@ -49,6 +49,10 @@ const prodInvFontSetting = {
     fontWeight: 600,
 }
 
+const errorStyle = {
+    color: 'red',
+}
+
 let buttonStyle = {
     backgroundColor: 'black',
     color: 'white',
@@ -71,9 +75,21 @@ export default class ProductBuyer extends React.Component {
             productInventoryInfo: {},
             colorArray: [],
             previousColor: '',
-            value: {}
+            colorValue: {},
+            widthValue: {},
+            sizeValue: {},
+            isSizeErrorVisible: false,
+            isColorErrorVisible: false,
+            isWidthErrorVisible: false,
+            productSelectedSize: 'Size',
+            productSelectedWidth: 'Width',
+            productSelectedColor: 'Color',
+
+            qty: 0
         }
-        this._onSelect = this._onSelect.bind(this);
+        this._onSelectSize = this._onSelectSize.bind(this);
+        this._onSelectWidth = this._onSelectWidth.bind(this);
+        this._onSelectColor = this._onSelectColor.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
@@ -118,8 +134,9 @@ export default class ProductBuyer extends React.Component {
                 ri.setState({
                     productInventoryInfo: productInventory,
                     colorArray: colorArrayData,
-                    value: 'Color'
-
+                    colorValue: 'Color',
+                    widthValue: 'Width',
+                    sizeValue: 'Size'
                 });
             },
             error: function (err) {
@@ -128,7 +145,7 @@ export default class ProductBuyer extends React.Component {
         });
     }
 
-    _onSelect(event) {
+    _onSelectColor(event) {
         debugger;
         let data = event.value;
         if (this.state.previousColor) {
@@ -141,12 +158,58 @@ export default class ProductBuyer extends React.Component {
         this.refs[data].style['border'] = "2px solid black";
         this.setState({
             previousColor: data,
-            value: data
+            colorValue: data,
+            productSelectedColor: data
         });
-
     }
-    handleSubmit() {
+    _onSelectWidth(event) {
+        debugger;
+        this.setState({
+            productSelectedWidth: event.value,
+            widthValue: event.value
+        });
+    };
 
+    _onSelectSize(event) {
+        debugger;
+        this.setState({
+            productSelectedSize: event.value,
+            sizeValue: event.value
+        });
+    };
+
+    handleSubmit(event) {
+        event.preventDefault();
+        if (this.state.productSelectedSize === 'Size') {
+            this.setState({
+                isSizeErrorVisible: true,
+                isColorErrorVisible: false,
+                isWidthErrorVisible: false
+            });
+            return;
+        }
+        else if (this.state.productSelectedWidth === 'Width') {
+            this.setState({
+                isWidthErrorVisible: true,
+                isSizeErrorVisible: false,
+                isColorErrorVisible: false
+            });
+            return;
+        } else if (this.state.productSelectedColor === 'Color') {
+            this.setState({
+                isColorErrorVisible: true,
+                isSizeErrorVisible: false,
+                isWidthErrorVisible: false
+            });
+            return;
+        } else {
+            this.setState({
+                isColorErrorVisible: false,
+                isSizeErrorVisible: false,
+                isWidthErrorVisible: false
+            });
+            console.log("Submit Data");
+        }
     }
 
     render() {
@@ -189,13 +252,18 @@ export default class ProductBuyer extends React.Component {
                 </div>
                 <div id="prdInv" style={productInv}>
                     <p><span style={prodInvFontSetting}>Fit</span> True to size</p>
-                    <Dropdown style={dropDownStyle} options={this.state.productInventoryInfo.SizesAvailable} placeholder="Size" />
+                    <Dropdown onChange={this._onSelectSize} style={dropDownStyle} options={this.state.productInventoryInfo.SizesAvailable} value={this.state.sizeValue} placeholder="Size" />
+                    {this.state.isSizeErrorVisible ? <p style={errorStyle}>Please select Size</p> : null}
                     <br />
                     <br />
-                    <Dropdown options={this.state.productInventoryInfo.WidthAvaialble} placeholder="Width" />
+                    <Dropdown onChange={this._onSelectWidth} options={this.state.productInventoryInfo.WidthAvaialble} value={this.state.widthValue} placeholder="Width" />
+                    {this.state.isWidthErrorVisible ? <p style={errorStyle}>Please select Width</p> : null}
+                    <br />
                     <br />
 
-                    <Dropdown onChange={this._onSelect} options={this.state.productInventoryInfo.ColorAvailable} value={this.state.value} placeholder="Color" />
+                    <Dropdown onChange={this._onSelectColor} options={this.state.productInventoryInfo.ColorAvailable} value={this.state.colorValue} placeholder="Color" />
+                    {this.state.isColorErrorVisible ? <p style={errorStyle}>Please select Color</p> : null}
+                    <br />
                     <br />
                     <br />
 
