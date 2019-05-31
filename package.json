@@ -9,7 +9,7 @@
     "initDB": "node server/database/index.js",
     "react-dev": "webpack -d --watch",
     "testjest": "jest"
-  },-de
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rpt13-tokillamockingbird/priyaFEC.git"
