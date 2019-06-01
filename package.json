@@ -64,6 +64,7 @@
     "react-dom": "^16.8.6",
     "react-dropdown": "^1.6.4",
     "react-star-rating-component": "^1.4.1",
-    "react-test-renderer": "^16.8.6"
+    "react-test-renderer": "^16.8.6",
+    "sweetalert": "^2.1.2"
   }
 }

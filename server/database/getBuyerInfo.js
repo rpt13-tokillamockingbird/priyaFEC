@@ -19,7 +19,23 @@ buyerData.getBuyerInfo = function (id, cb) {
             console.log("GetBuyerInfo", err)
         }
         cb(results);
-    })
-};
+    });
 
+
+};
+buyerData.getProductQuantity = function (productObj, cb) {
+    let getprdQuantity = `select p.Quantity from productinventory as p 
+    join color as c on p.ColorId = c.ColorId
+    join size as s on p.SizeId = s.SizeId
+    join width as w on p.WidthId = w.WidthId
+    where p.ProductId = ${productObj.productId} and c.Color = '${productObj.Color}' and 
+    w.WidthType = '${productObj.Width}' and s.USSize  = '${productObj.Size}'`;
+    console.log(getprdQuantity);
+    dbConnection1.query(getprdQuantity, (err, results) => {
+        if (err) {
+            console.log("getprdQuantity", err)
+        }
+        cb(results);
+    });
+}
 module.exports.buyerData = buyerData;

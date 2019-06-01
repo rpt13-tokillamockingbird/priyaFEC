@@ -14,4 +14,11 @@ app.get('/productInfo', function (req, res) {
     });
 });
 
+app.get('/productQtyInfo', function (req, res) {
+    debugger;
+    console.log(req.query.productObj);
+    dbConnect.buyerData.getProductQuantity(req.query.productObj, function (data) {
+        res.send(data);
+    });
+});
 app.listen(port, () => console.log(`Product Buyer is  running on port 127.0.0.1:${port}`));

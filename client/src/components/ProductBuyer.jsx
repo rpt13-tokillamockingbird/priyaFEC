@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
-import dropDownStyle from '../../src/style/DropDown.css'
+import dropDownStyle from '../../src/style/DropDown.css';
+import swal from 'sweetalert';
 
 const productInfo = {
     fontFamily: "Arial",
@@ -69,6 +70,7 @@ export default class ProductBuyer extends React.Component {
     constructor() {
         super();
         this.state = {
+            productId: '',
             productInfo: {},
             productReviewInfo: {},
             productInventoryInfo: {},
@@ -80,6 +82,7 @@ export default class ProductBuyer extends React.Component {
             isSizeErrorVisible: false,
             isColorErrorVisible: false,
             isWidthErrorVisible: false,
+            isQtyErrorVisible: false,
             productSelectedSize: 'Size',
             productSelectedWidth: 'Width',
             productSelectedColor: 'Color',
@@ -96,6 +99,9 @@ export default class ProductBuyer extends React.Component {
         debugger;
         var pathData = window.location.href.split('/')
         let productId = pathData[pathData.length - 2];
+        this.setState({
+            productId: productId
+        });
         let productServiceData = {
             productTitle: 'Everett Plain Toe Derby',
             productSubTitle: 'THE RAIL',
@@ -145,7 +151,10 @@ export default class ProductBuyer extends React.Component {
     }
 
     prdQty(event) {
-        this.setState({ qty: event.target.value });
+        this.setState({
+            qty: event.target.value,
+            isQtyErrorVisible: false
+        });
     }
     _onSelectColor(event) {
         debugger;
@@ -161,14 +170,16 @@ export default class ProductBuyer extends React.Component {
         this.setState({
             previousColor: data,
             colorValue: data,
-            productSelectedColor: data
+            productSelectedColor: data,
+            isQtyErrorVisible: false
         });
     }
     _onSelectWidth(event) {
         debugger;
         this.setState({
             productSelectedWidth: event.value,
-            widthValue: event.value
+            widthValue: event.value,
+            isQtyErrorVisible: false
         });
     };
 
@@ -176,11 +187,13 @@ export default class ProductBuyer extends React.Component {
         debugger;
         this.setState({
             productSelectedSize: event.value,
-            sizeValue: event.value
+            sizeValue: event.value,
+            isQtyErrorVisible: false
         });
     };
 
     handleSubmit(event) {
+        let rm = this;
         event.preventDefault();
         if (this.state.productSelectedSize === 'Size') {
             this.setState({
@@ -211,9 +224,51 @@ export default class ProductBuyer extends React.Component {
                 isWidthErrorVisible: false
             });
 
+            let productObj = {
+                productId: this.state.productId,
+                Size: this.state.productSelectedSize.split('/')[0],
+                Width: this.state.productSelectedWidth,
+                Color: this.state.productSelectedColor
+            }
+            this.checkDataPresent(productObj, this.state.qty);
             //check if data
-            console.log("Submit Data");
+            console.log(rm);
         }
+    }
+
+    checkDataPresent(productSelected, qty) {
+        let rm = this;
+        $.ajax({
+            url: `/productQtyInfo`,
+            data: {
+                productObj: productSelected
+            },
+            method: 'GET',
+            success: function (data) {
+                debugger;
+                if (data.length > 0) {
+                    let checkQty = data[0].Quantity - qty
+                    let status = (checkQty > 0) ? false : true
+                    rm.setState({
+                        isQtyErrorVisible: status
+                    });
+                    if (!status) {
+                        swal({
+                            title: "Yay!",
+                            text: "Product added to cart",
+                            icon: "success"
+                        });
+                    }
+                } else {
+                    rm.setState({
+                        isQtyErrorVisible: true
+                    });
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
     }
 
     render() {
@@ -288,6 +343,7 @@ export default class ProductBuyer extends React.Component {
                         <br />
                         <input style={inputStyle} type="text" onChange={this.prdQty}
                             value={this.state.qty} />
+                        {this.state.isQtyErrorVisible ? <p style={errorStyle}>Product selected is out of Stock. Please try  next time </p> : null}
                         <br />
                         <br />
                         <input style={buttonStyle} type="submit" value="Add to Bag" />
