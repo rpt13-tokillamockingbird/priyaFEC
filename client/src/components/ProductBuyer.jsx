@@ -1,4 +1,3 @@
-import axios from 'axios';
 import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -84,13 +83,13 @@ export default class ProductBuyer extends React.Component {
             productSelectedSize: 'Size',
             productSelectedWidth: 'Width',
             productSelectedColor: 'Color',
-
-            qty: 0
+            qty: ''
         }
         this._onSelectSize = this._onSelectSize.bind(this);
         this._onSelectWidth = this._onSelectWidth.bind(this);
         this._onSelectColor = this._onSelectColor.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.prdQty = this.prdQty.bind(this);
 
     }
     componentDidMount() {
@@ -145,6 +144,9 @@ export default class ProductBuyer extends React.Component {
         });
     }
 
+    prdQty(event) {
+        this.setState({ qty: event.target.value });
+    }
     _onSelectColor(event) {
         debugger;
         let data = event.value;
@@ -208,6 +210,8 @@ export default class ProductBuyer extends React.Component {
                 isSizeErrorVisible: false,
                 isWidthErrorVisible: false
             });
+
+            //check if data
             console.log("Submit Data");
         }
     }
@@ -224,7 +228,7 @@ export default class ProductBuyer extends React.Component {
         }
 
         return (
-            <div style={productInfo}>
+            <div className="ProductBuyer" style={productInfo}>
                 <h3>NORDSTORM Product Buyer</h3>
                 <div id="prdReview">
                     <StarRatingComponent
@@ -282,7 +286,8 @@ export default class ProductBuyer extends React.Component {
 
                     <form onSubmit={this.handleSubmit}>
                         <br />
-                        <input style={inputStyle} type="text" value={this.state.qty} />
+                        <input style={inputStyle} type="text" onChange={this.prdQty}
+                            value={this.state.qty} />
                         <br />
                         <br />
                         <input style={buttonStyle} type="submit" value="Add to Bag" />

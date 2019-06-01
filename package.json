@@ -3,12 +3,28 @@
   "version": "1.0.0",
   "description": "Build the item buyer section",
   "main": "index.js",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupFiles": [
+      "./server/setupTests.js"
+    ],
+    "transformIgnorePatterns": [
+      "!node_modules/react-runtime"
+    ]
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon server/server.js",
     "initDB": "node server/database/index.js",
-    "react-dev": "webpack -d --watch",
-    "testjest": "jest"
+    "react-dev": "webpack -d --watch"
   },
   "repository": {
     "type": "git",
@@ -22,10 +38,15 @@
   "homepage": "https://github.com/rpt13-tokillamockingbird/priyaFEC#readme",
   "devDependencies": {
     "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.13.2",
+    "enzyme-to-json": "^3.3.5",
     "faker": "^4.1.0",
     "jest": "^24.8.0",
     "style-loader": "^0.23.1",
@@ -33,6 +54,7 @@
     "webpack-cli": "^3.3.2"
   },
   "dependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "bootstrap": "^4.3.1",
     "express": "^4.16.4",
     "jquery": "^3.4.1",
@@ -41,6 +63,7 @@
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-dropdown": "^1.6.4",
-    "react-star-rating-component": "^1.4.1"
+    "react-star-rating-component": "^1.4.1",
+    "react-test-renderer": "^16.8.6"
   }
 }
