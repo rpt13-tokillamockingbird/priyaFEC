@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductBuyer should render correctly in "debug" mode 1`] = `
+<div
+  className="ProductBuyer"
+  style={
+    Object {
+      "color": "#393939",
+      "fontFamily": "Arial",
+      "lineHeight": "1.4",
+      "width": "25%",
+    }
+  }
+>
+  <h3>
+    NORDSTORM Product Buyer
+  </h3>
+  <div
+    id="prdReview"
+  >
+    <StarRatingComponent
+      editing={true}
+      emptyStarColor="grey"
+      name="productRate"
+      starColor="black"
+      starCount={5}
+      value={3.5}
+    />
+    <span
+      style={
+        Object {
+          "bottom": "5px",
+          "display": "inline-block",
+          "fontSize": "1.3rem",
+          "position": "relative",
+        }
+      }
+    >
+      (
+      100
+      )
+    </span>
+  </div>
+  <div
+    id="prdInfo"
+  >
+    <div
+      style={
+        Object {
+          "fontSize": "1.3rem",
+        }
+      }
+    >
+      Everett Plain Toe Derby
+    </div>
+    <div
+      style={
+        Object {
+          "fontSize": "1.1rem",
+        }
+      }
+    >
+      THE RAIL
+    </div>
+    <div
+      style={
+        Object {
+          "fontSize": "1rem",
+          "fontWeight": "600",
+          "lineHeight": "2",
+        }
+      }
+    >
+      <p>
+        $
+        <strike
+          style={
+            Object {
+              "fontWeight": "400",
+            }
+          }
+        >
+          99.94
+        </strike>
+         $
+        89.94
+           
+        33
+        % off
+      </p>
+    </div>
+    <p
+      style={
+        Object {
+          "fontSize": "0.8rem",
+        }
+      }
+    >
+      Burnished fine-grain leather and precision-stitched welting add polished versatility to an essential shoe for every man's wardrobe.
+    </p>
+  </div>
+  <div
+    id="prdInv"
+    style={
+      Object {
+        "fontSize": "0.8rem",
+      }
+    }
+  >
+    <p>
+      <span
+        style={
+          Object {
+            "fontWeight": 600,
+          }
+        }
+      >
+        Fit
+      </span>
+       True to size
+    </p>
+    <Dropdown
+      baseClassName="Dropdown"
+      onChange={[Function]}
+      placeholder="Size"
+      style={
+        Object {
+          "Dropdown-placeholder": "DropDown__Dropdown-placeholder___3k_a8",
+        }
+      }
+      value={Object {}}
+    />
+    <br />
+    <br />
+    <Dropdown
+      baseClassName="Dropdown"
+      onChange={[Function]}
+      placeholder="Width"
+      value={Object {}}
+    />
+    <br />
+    <br />
+    <Dropdown
+      baseClassName="Dropdown"
+      onChange={[Function]}
+      placeholder="Color"
+      value={Object {}}
+    />
+    <br />
+    <br />
+    <br />
+    <form
+      onSubmit={[Function]}
+    >
+      <br />
+      <input
+        onChange={[Function]}
+        style={
+          Object {
+            "height": "50px",
+            "width": "50px",
+          }
+        }
+        type="text"
+        value=""
+      />
+      <br />
+      <br />
+      <input
+        style={
+          Object {
+            "backgroundColor": "black",
+            "color": "white",
+            "padding": "10px",
+            "width": "474px",
+          }
+        }
+        type="submit"
+        value="Add to Bag"
+      />
+    </form>
+  </div>
+</div>
+`;

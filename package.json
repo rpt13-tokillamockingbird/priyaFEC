@@ -4,21 +4,15 @@
   "description": "Build the item buyer section",
   "main": "index.js",
   "jest": {
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules"
-    ],
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
     "setupFiles": [
       "./server/setupTests.js"
     ],
-    "transformIgnorePatterns": [
-      "!node_modules/react-runtime"
-    ]
+    "transform": {
+      "^.+\\.(js|jsx)?$": "babel-jest"
+    }
   },
   "scripts": {
     "test": "jest",
@@ -43,6 +37,8 @@
     "@babel/preset-react": "^7.0.0",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
+    "babel-plugin-css-modules-transform": "^1.6.2",
+    "babel-plugin-react-css-modules": "^5.2.6",
     "css-loader": "^2.1.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
@@ -55,6 +51,7 @@
   },
   "dependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
     "bootstrap": "^4.3.1",
     "express": "^4.16.4",
     "jquery": "^3.4.1",

@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import Dropdown from 'react-dropdown'
-import 'react-dropdown/style.css'
-import dropDownStyle from '../../src/style/DropDown.css';
+import "react-dropdown/style.css"
+import dropDownStyle from "../../src/style/DropDown.css";
 import swal from 'sweetalert';
 
 const productInfo = {
