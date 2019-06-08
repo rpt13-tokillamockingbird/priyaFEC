@@ -9,6 +9,7 @@ app.use('/productBuyerInfo/:id', express.static(path.join(__dirname, '../client/
 
 app.get('/productInfo', function (req, res) {
     debugger;
+    console.log(req.query.id);
     dbConnect.buyerData.getBuyerInfo(req.query.id, function (data) {
         res.send(data);
     });
