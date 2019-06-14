@@ -3,9 +3,11 @@ const app = express();
 const port = 4000;
 const dbConnect = require("../server/database/getBuyerInfo");
 const path = require('path');
+var proxy = require('http-proxy-middleware');
 //app.use(express.static('client/dist'));
+app.use('/productBuyerInfo/:id', express.static(path.join(__dirname, '../client/dist')));
 
-app.use('/productBuyerInfo/:id', express.static(path.join(__dirname, '../client/dist')))
+
 
 app.get('/productInfo', function (req, res) {
     debugger;

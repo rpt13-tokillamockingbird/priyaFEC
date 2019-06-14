@@ -99,18 +99,35 @@ export default class ProductBuyer extends React.Component {
         debugger;
         var pathData = window.location.href.split('/')
         let productId = pathData[pathData.length - 2];
+        let productServiceData = {};
         this.setState({
             productId: productId
         });
-        let productServiceData = {
-            productTitle: 'Everett Plain Toe Derby',
-            productSubTitle: 'THE RAIL',
-            productOriginalPrice: 99.94,
-            productDiscountPrice: 89.94,
-            productDiscountPercent: 33,
-            productSingleLinDesc: "Burnished fine-grain leather and precision-stitched welting add polished versatility to an essential shoe for every man's wardrobe."
-        }
-
+        $.ajax({
+            url: `/productBuyerService`,
+            data: {
+                id: productId
+            },
+            method: 'GET',
+            success: function (data) {
+                debugger;
+                let productData = data[0];
+                let productServiceData2 = {
+                    productTitle: productData.productName.toUpperCase(),
+                    productSubTitle: productData.productSubTitle,
+                    productOriginalPrice: productData.price.$numberDecimal,
+                    productDiscountPrice: productData.discountPrice.$numberDecimal,
+                    productDiscountPercent: productData.discountPercent,
+                    productSingleLinDesc: productData.productSingleLineDescription
+                };
+                productServiceData = Object.assign(productServiceData, productServiceData2);;
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+        console.log("priya");
+        console.log(productServiceData);
         let reviewServiceData = {
             productRating: 3.5,
             productNumberOfRating: 100
