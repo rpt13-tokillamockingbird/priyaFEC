@@ -4,23 +4,29 @@ const port = 4000;
 const dbConnect = require("../server/database/getBuyerInfo");
 const path = require('path');
 var proxy = require('http-proxy-middleware');
+const bodyParser = require("body-parser");
+var cors = require('cors');
+
+app.use(cors());
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 //app.use(express.static('client/dist'));
-app.use('/productBuyerInfo/:id', express.static(path.join(__dirname, '../client/dist')));
+app.use('/:id', express.static(path.join(__dirname, '../client/dist')));
 
 
 
-app.get('/productInfo', function (req, res) {
+app.get('/productInfo/:id', function (req, res) {
     debugger;
-    console.log(req.query.id);
-    dbConnect.buyerData.getBuyerInfo(req.query.id, function (data) {
+    dbConnect.buyerData.getBuyerInfo(req.params.id, function (data) {
         res.send(data);
     });
 });
 
-app.get('/productQtyInfo', function (req, res) {
-    debugger;
-    console.log(req.query.productObj);
-    dbConnect.buyerData.getProductQuantity(req.query.productObj, function (data) {
+app.post('/productQtyInfo', function (req, res) {
+    dbConnect.buyerData.getProductQuantity(req.body.productObj, function (data) {
         res.send(data);
     });
 });

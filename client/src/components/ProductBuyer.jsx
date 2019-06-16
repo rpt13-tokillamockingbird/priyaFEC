@@ -104,10 +104,10 @@ export default class ProductBuyer extends React.Component {
             productId: productId
         });
         $.ajax({
-            url: `/productBuyerService`,
-            data: {
-                id: productId
-            },
+            url: `/productBuyerService${window.location.pathname}`,
+            // data: {
+            //     id: productId
+            // },
             method: 'GET',
             success: function (data) {
                 debugger;
@@ -139,11 +139,9 @@ export default class ProductBuyer extends React.Component {
         debugger;
         // get productID from url
         let ri = this;
+        console.log(window.location.pathname);
         $.ajax({
-            url: `/productInfo`,
-            data: {
-                id: productId
-            },
+            url: `/productInfo${window.location.pathname}`,
             method: 'GET',
             success: function (data) {
                 debugger;
@@ -260,7 +258,7 @@ export default class ProductBuyer extends React.Component {
             data: {
                 productObj: productSelected
             },
-            method: 'GET',
+            method: 'POST',
             success: function (data) {
                 debugger;
                 if (data.length > 0) {
