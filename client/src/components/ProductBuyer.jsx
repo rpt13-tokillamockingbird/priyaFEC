@@ -11,7 +11,8 @@ const productInfo = {
     fontFamily: "Arial",
     lineHeight: '1.4',
     color: '#393939',
-    width: '25%'
+    width: '55%',
+    float: "right"
 }
 const reviewNumberStyle = {
     display: 'inline-block',
@@ -100,6 +101,7 @@ export default class ProductBuyer extends React.Component {
         var pathData = window.location.href.split('/')
         let productId = pathData[pathData.length - 2];
         let productServiceData = {};
+        let reviewServiceData = {};
         this.setState({
             productId: productId
         });
@@ -126,12 +128,24 @@ export default class ProductBuyer extends React.Component {
                 console.log(err);
             }
         });
-        console.log("priya");
-        console.log(productServiceData);
-        let reviewServiceData = {
-            productRating: 3.5,
-            productNumberOfRating: 100
-        }
+
+        $.ajax({
+            url: `/Priya${window.location.pathname}`,
+            // data: {
+            //     id: productId
+            // },
+            method: 'GET',
+            success: function (data) {
+                reviewServiceData = Object.assign(reviewServiceData, data)
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+        // let reviewServiceData = {
+        //     productRating: 3.5,
+        //     productNumberOfRating: 100
+        // }
         this.setState({
             productInfo: productServiceData,
             productReviewInfo: reviewServiceData,
@@ -290,7 +304,7 @@ export default class ProductBuyer extends React.Component {
         const isDiscounted = this.state.productInfo.productDiscountPrice;
         const defaultSize = "Size"
         let productPriceInfo;
-        if (isDiscounted) {
+        if (isDiscounted > 0) {
             productPriceInfo = <p>$<strike style={strikePrice}>{this.state.productInfo.productOriginalPrice}</strike>&nbsp;${this.state.productInfo.productDiscountPrice}&nbsp;  {this.state.productInfo.productDiscountPercent}% off</p>
         }
         else {
@@ -299,7 +313,6 @@ export default class ProductBuyer extends React.Component {
 
         return (
             <div className="ProductBuyer" style={productInfo}>
-                <h3>NORDSTORM Product Buyer</h3>
                 <div id="prdReview">
                     <StarRatingComponent
                         name="productRate"
