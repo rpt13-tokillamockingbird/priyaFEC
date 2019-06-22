@@ -26,10 +26,10 @@ buyerData.getBuyerInfo = function (id, cb) {
 
 };
 buyerData.getProductQuantity = function (productObj, cb) {
-    let getprdQuantity = `select p.Quantity from productinventory as p 
-    join color as c on p.ColorId = c.ColorId
-    join size as s on p.SizeId = s.SizeId
-    join width as w on p.WidthId = w.WidthId
+    let getprdQuantity = `select p.Quantity from ProductInventory as p 
+    join Color as c on p.ColorId = c.ColorId
+    join Size as s on p.SizeId = s.SizeId
+    join Width as w on p.WidthId = w.WidthId
     where p.ProductId = ${productObj.productId} and c.Color = '${productObj.Color}' and 
     w.WidthType = '${productObj.Width}' and s.USSize  = '${productObj.Size}'`;
     console.log(getprdQuantity);
