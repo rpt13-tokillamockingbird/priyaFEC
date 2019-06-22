@@ -106,7 +106,7 @@ export default class ProductBuyer extends React.Component {
             productId: productId
         });
         $.ajax({
-            url: `http://ec2-54-175-0-74.compute-1.amazonaws.com${window.location.pathname}`,
+            url: `http://ec2-54-175-0-74.compute-1.amazonaws.com/productBuyerService${window.location.pathname}`,
             // data: {
             //     id: productId
             // },
