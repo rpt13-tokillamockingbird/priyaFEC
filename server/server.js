@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 4000;
+const port = 3010;
 const dbConnect = require("../server/database/getBuyerInfo");
 const path = require('path');
 var proxy = require('http-proxy-middleware');
