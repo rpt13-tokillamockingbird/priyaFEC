@@ -105,51 +105,48 @@ export default class ProductBuyer extends React.Component {
         this.setState({
             productId: productId
         });
-        $.ajax({
-            url: `/productBuyerService${window.location.pathname}`,
-            // data: {
-            //     id: productId
-            // },
-            method: 'GET',
-            success: function (data) {
-                debugger;
-                let productData = data[0];
-                let productServiceData2 = {
-                    productTitle: productData.productName.toUpperCase(),
-                    productSubTitle: productData.productSubTitle,
-                    productOriginalPrice: productData.price.$numberDecimal,
-                    productDiscountPrice: productData.discountPrice.$numberDecimal,
-                    productDiscountPercent: productData.discountPercent,
-                    productSingleLinDesc: productData.productSingleLineDescription
-                };
-                productServiceData = Object.assign(productServiceData, productServiceData2);;
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
+        // $.ajax({
+        //     url: `/productBuyerService${window.location.pathname}`,
+        //     // data: {
+        //     //     id: productId
+        //     // },
+        //     method: 'GET',
+        //     success: function (data) {
+        //         debugger;
+        //         let productData = data[0];
+        //         let productServiceData2 = {
+        //             productTitle: productData.productName.toUpperCase(),
+        //             productSubTitle: productData.productSubTitle,
+        //             productOriginalPrice: productData.price.$numberDecimal,
+        //             productDiscountPrice: productData.discountPrice.$numberDecimal,
+        //             productDiscountPercent: productData.discountPercent,
+        //             productSingleLinDesc: productData.productSingleLineDescription
+        //         };
+        //         productServiceData = Object.assign(productServiceData, productServiceData2);;
+        //     },
+        //     error: function (err) {
+        //         console.log(err);
+        //     }
+        // });
 
-        $.ajax({
-            url: `/Priya${window.location.pathname}`,
-            // data: {
-            //     id: productId
-            // },
-            method: 'GET',
-            success: function (data) {
-                reviewServiceData = Object.assign(reviewServiceData, data)
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-        // let reviewServiceData = {
-        //     productRating: 3.5,
-        //     productNumberOfRating: 100
-        // }
-        this.setState({
-            productInfo: productServiceData,
-            productReviewInfo: reviewServiceData,
-        });
+        // $.ajax({
+        //     url: `/Priya${window.location.pathname}`,
+        //     // data: {
+        //     //     id: productId
+        //     // },
+        //     method: 'GET',
+        //     success: function (data) {
+        //         reviewServiceData = Object.assign(reviewServiceData, data)
+        //     },
+        //     error: function (err) {
+        //         console.log(err);
+        //     }
+        // });
+
+        // this.setState({
+        //     productInfo: productServiceData,
+        //     productReviewInfo: reviewServiceData,
+        // });
         debugger;
         // get productID from url
         let ri = this;
