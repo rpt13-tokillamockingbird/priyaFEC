@@ -105,29 +105,29 @@ export default class ProductBuyer extends React.Component {
         this.setState({
             productId: productId
         });
-        // $.ajax({
-        //     url: `/productBuyerService${window.location.pathname}`,
-        //     // data: {
-        //     //     id: productId
-        //     // },
-        //     method: 'GET',
-        //     success: function (data) {
-        //         debugger;
-        //         let productData = data[0];
-        //         let productServiceData2 = {
-        //             productTitle: productData.productName.toUpperCase(),
-        //             productSubTitle: productData.productSubTitle,
-        //             productOriginalPrice: productData.price.$numberDecimal,
-        //             productDiscountPrice: productData.discountPrice.$numberDecimal,
-        //             productDiscountPercent: productData.discountPercent,
-        //             productSingleLinDesc: productData.productSingleLineDescription
-        //         };
-        //         productServiceData = Object.assign(productServiceData, productServiceData2);;
-        //     },
-        //     error: function (err) {
-        //         console.log(err);
-        //     }
-        // });
+        $.ajax({
+            url: `http://ec2-54-175-0-74.compute-1.amazonaws.com${window.location.pathname}`,
+            // data: {
+            //     id: productId
+            // },
+            method: 'GET',
+            success: function (data) {
+                debugger;
+                let productData = data[0];
+                let productServiceData2 = {
+                    productTitle: productData.productName.toUpperCase(),
+                    productSubTitle: productData.productSubTitle,
+                    productOriginalPrice: productData.price.$numberDecimal,
+                    productDiscountPrice: productData.discountPrice.$numberDecimal,
+                    productDiscountPercent: productData.discountPercent,
+                    productSingleLinDesc: productData.productSingleLineDescription
+                };
+                productServiceData = Object.assign(productServiceData, productServiceData2);;
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
 
         // $.ajax({
         //     url: `/Priya${window.location.pathname}`,
@@ -143,10 +143,10 @@ export default class ProductBuyer extends React.Component {
         //     }
         // });
 
-        // this.setState({
-        //     productInfo: productServiceData,
-        //     productReviewInfo: reviewServiceData,
-        // });
+        this.setState({
+            productInfo: productServiceData,
+            // productReviewInfo: reviewServiceData,
+        });
         debugger;
         // get productID from url
         let ri = this;
