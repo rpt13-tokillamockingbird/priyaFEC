@@ -131,7 +131,7 @@ export default class ProductBuyer extends React.Component {
         });
 
         $.ajax({
-            url: `http://ec2-3-80-184-14.compute-1.amazonaws.com/Priya${window.location.pathname}`,
+            url: `http://ec2-54-196-121-70.compute-1.amazonaws.com/Priya${window.location.pathname}`,
             // data: {
             //     id: productId
             // },
