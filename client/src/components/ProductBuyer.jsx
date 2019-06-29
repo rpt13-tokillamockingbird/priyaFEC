@@ -125,7 +125,6 @@ export default class ProductBuyer extends React.Component {
                 productServiceData = Object.assign(productServiceData, productServiceData2);;
             },
             error: function (err) {
-                console.log(err);
                 console.log("tee");
             }
         });
