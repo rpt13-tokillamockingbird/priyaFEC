@@ -126,6 +126,7 @@ export default class ProductBuyer extends React.Component {
             },
             error: function (err) {
                 console.log(err);
+                console.log("pp");
             }
         });
 
