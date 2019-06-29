@@ -129,23 +129,23 @@ export default class ProductBuyer extends React.Component {
             }
         });
 
-        // $.ajax({
-        //     url: `/Priya${window.location.pathname}`,
-        //     // data: {
-        //     //     id: productId
-        //     // },
-        //     method: 'GET',
-        //     success: function (data) {
-        //         reviewServiceData = Object.assign(reviewServiceData, data)
-        //     },
-        //     error: function (err) {
-        //         console.log(err);
-        //     }
-        // });
+        $.ajax({
+            url: `http://ec2-3-80-184-14.compute-1.amazonaws.com/Priya${window.location.pathname}`,
+            // data: {
+            //     id: productId
+            // },
+            method: 'GET',
+            success: function (data) {
+                reviewServiceData = Object.assign(reviewServiceData, data)
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
 
         this.setState({
             productInfo: productServiceData,
-            // productReviewInfo: reviewServiceData,
+            productReviewInfo: reviewServiceData,
         });
         debugger;
         // get productID from url
